@@ -173,7 +173,7 @@ int main(void)
 	/************************************************************************/
 	/* UBX-NAV-TIMEUTC Aktivieren wenn Ublox bereit                         */
 	/************************************************************************/
-	while(!(PORTA & (1<<PORTA6)));
+	while(!(PINA & (1<<PINA6)));
 	enable_nav_timeutc();
 	
 	
