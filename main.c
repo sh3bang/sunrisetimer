@@ -367,13 +367,13 @@ int main(void)
 								else if(OCR0BL > duty_cyle_max) {
 									OCR0BL -= 1;
 								}
-								PORTA |= (1<<PORTA0); // CO2 und Lüfter an
+								PORTA &= ~(1<<PORTA0); // Relais an
 							}
 							else if(OCR0BL > 0) {
 								OCR0BL -= 1;
 							}
 							else {
-								PORTA &= ~(1<<PORTA0); // CO2 und Lüfter aus
+								PORTA |= (1<<PORTA0); // Relais aus
 							}
 						}
 						PORTA &= ~(1<<PORTA5); // Board LED an (gültige uhrzeit)
