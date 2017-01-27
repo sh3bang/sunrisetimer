@@ -134,8 +134,7 @@ static void enable_nav_timeutc()
 int main(void)
 {
 	DDRA = (1<<DDRA0)|(1<<DDRA1)|(1<<DDRA5);
-	PORTA = (1<<PORTA5);
-	
+		
 	/************************************************************************/
 	/* CPU-Takt einstellen                                                  */
 	/************************************************************************/
@@ -154,14 +153,14 @@ int main(void)
 	/************************************************************************/
 	
 	TCCR0A = (1<<COM0B1)|(1<<COM0B0)|(1<<WGM00); // OC0B aktivieren, 8-bit PWM, output high level
-	TCCR0B = (1<<CS01)|(1<<WGM02);// PWM Frequenz = 278Hz @ 2MHz clock / 8 (Timer Prescaler)
+	TCCR0B = (1<<CS01)|(1<<CS00)|(1<<WGM02);
 	
 	/************************************************************************/
 	/* UART Konfigurieren                                                   */
 	/************************************************************************/
 	
 	/*USART Baud Rate Register Low and High byte*/
-	//UBRRH = UBRR_VAL >> 8;
+	UBRRH = UBRR_VAL >> 8;
 	UBRRL = UBRR_VAL & 0xFF;
 	
 	/*USART Control and Status Register B*/
@@ -173,7 +172,8 @@ int main(void)
 	/************************************************************************/
 	/* UBX-NAV-TIMEUTC Aktivieren wenn Ublox bereit                         */
 	/************************************************************************/
-	while(!(PINA & (1<<PINA6)));
+	while(!(PINB & (1<<PINB1)));
+	PORTA |= (1<<PORTA5); // Board LED aus
 	enable_nav_timeutc();
 	
 	
