@@ -133,7 +133,11 @@ static void enable_nav_timeutc()
 
 int main(void)
 {
+	// Ausgang: Relais, PWM, Board LED
 	DDRA = (1<<DDRA0)|(1<<DDRA1)|(1<<DDRA5);
+
+	// Standardeinstellung Relais (Aus)
+	PORTA = (1<<PORTA0);
 		
 	/************************************************************************/
 	/* CPU-Takt einstellen                                                  */
@@ -153,14 +157,14 @@ int main(void)
 	/************************************************************************/
 	
 	TCCR0A = (1<<COM0B1)|(1<<COM0B0)|(1<<WGM00); // OC0B aktivieren, 8-bit PWM, output high level
-	TCCR0B = (1<<CS01)|(1<<CS00)|(1<<WGM02);
+	TCCR0B = (1<<CS01)|(1<<CS00)|(1<<WGM02); // Prescaler 64 = 125Hz PWM Signal
 	
 	/************************************************************************/
 	/* UART Konfigurieren                                                   */
 	/************************************************************************/
 	
 	/*USART Baud Rate Register Low and High byte*/
-	UBRRH = UBRR_VAL >> 8;
+	//UBRRH = UBRR_VAL >> 8;
 	UBRRL = UBRR_VAL & 0xFF;
 	
 	/*USART Control and Status Register B*/
