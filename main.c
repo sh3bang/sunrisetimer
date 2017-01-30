@@ -338,10 +338,10 @@ int main(void)
 							date_lsb = capture.timeutc.month*100+capture.timeutc.day;
 
 							if(date_lsb >= 1031 || date_lsb < 331){ // statisch von 31.10 bis 31.03
-								time = 200; // UTC + 2 Std.
+								time = 100; // UTC + 1 Std.
 							}
 							else {
-								time = 100; // UTC + 1 Std.
+								time = 200; // UTC + 2 Std.
 							}
 
 							time += capture.timeutc.hour*100+capture.timeutc.minute;
