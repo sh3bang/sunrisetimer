@@ -136,7 +136,7 @@ int main(void)
 	// Ausgang: Relais, PWM, Board LED
 	DDRA = (1<<DDRA0)|(1<<DDRA1)|(1<<DDRA5);
 
-	// Standardeinstellung Relais (Aus)
+	// Standardeinstellung Relais aus (high), Board LED an (low)
 	PORTA = (1<<PORTA0);
 		
 	/************************************************************************/
@@ -174,11 +174,12 @@ int main(void)
 	UCSRC = (1<<UCSZ1)|(1<<UCSZ0); // Asynchron 8N1
 	
 	/************************************************************************/
-	/* UBX-NAV-TIMEUTC Aktivieren wenn Ublox bereit                         */
+	/* Enable UBX-NAV-TIMEUTC message (again, again, ...)                   */
 	/************************************************************************/
-	while(!(PINB & (1<<PINB1)));
-	PORTA |= (1<<PORTA5); // Board LED aus
-	enable_nav_timeutc();
+	uint8_t nav_count = 255;
+	while(nav_count--){
+		enable_nav_timeutc();
+	}
 	
 	
 	unsigned char chr;		
