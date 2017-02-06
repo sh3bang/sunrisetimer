@@ -174,13 +174,9 @@ int main(void)
 	UCSRC = (1<<UCSZ1)|(1<<UCSZ0); // Asynchron 8N1
 	
 	/************************************************************************/
-	/* Enable UBX-NAV-TIMEUTC message (again, again, ...)                   */
+	/* Enable UBX-NAV-TIMEUTC message                                       */
 	/************************************************************************/
-	uint8_t nav_count = 255;
-	while(nav_count--){
-		enable_nav_timeutc();
-	}
-	
+	enable_nav_timeutc();
 	
 	unsigned char chr;		
 
