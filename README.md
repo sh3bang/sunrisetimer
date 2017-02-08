@@ -9,7 +9,7 @@ Challenge: 1kB flash!
 Result:
 - 1004 Bytes programm size
 - no eeprom, store timer settings on last flash page (16 Bytes)
-- 6 Bytes Free(space optimized compiling with AVR-GCC -Os)
+- 6 Bytes Free (space optimized compiling with AVR-GCC -Os)
 
 ### Dokumente
 
@@ -30,15 +30,15 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 
 ###Paketbeispiel
 ````
-B9	<-- Paketkennung
-03
-20	<-- 8:00 Einschalten (Hochdimmen)
-09
-16	<-- 23:59 Ausschalten (Runterdimmen)
-FF	<-- Max. Helligkeit (255 = 100% Duty Cycle)
-00	<-- Dauer des Sonnenauf- und Untergangs
-41	<-- Prüfsumme CK_A
-16	<-- Prüfsumme CK_B
+0xB9	<-- Paketkennung
+0x03
+0x20	<-- 8:00 Einschalten (Hochdimmen)
+0x09
+0x16	<-- 23:59 Ausschalten (Runterdimmen)
+0xFF	<-- Max. Helligkeit (255 = 100% Duty Cycle)
+0x00	<-- Dauer des Sonnenauf- und Untergangs
+0x41	<-- Prüfsumme CK_A
+0x16	<-- Prüfsumme CK_B
 ````
 
 ###Beispiel Prüfsummenberechnung
