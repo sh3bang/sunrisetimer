@@ -1,10 +1,12 @@
-# GPS time based Timer
-GPS time based Sunrise/Sunset timer
+![Logo](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/ATtiny104.png)
 
-Attiny 104: 1kB FLASH!
+# ATtiny104 Xplained Nano: GPS based Timer
+GPS based sunrise and sunset timer for fish tanks
+
+Challenge: 1kB Program Flash!
 
 - 1004 Bytes Programm
-- 16 Bytes timer settings (One Flash Page)
+- Store timer settings on last flash page (16 Bytes)
 - Free: 6 Bytes :-) (space optimized: AVR-GCC -Os)
 
 ##Timereinstellungen via UART Programmieren (COM Port via USB):
@@ -32,3 +34,6 @@ FF	<-- 100% Helligkeit (255 = 100% Duty Cycle)
 41	<-- Prüfsumme CK_A
 16	<-- Prüfsumme CK_B
 ````
+
+PS: der IC hat nur ein UART der bereits vom GPS Receiver belegt ist, welcher jedoch nicht permanent die Leitung belegt.
+Daher sender der IC ein "R" für "Ready" wenn Zeit zum empfangen hat- bzw. wenn er längere Zeit nichts empfangen hat. In diesem Zeitfenster muss das Paket gesendet werden!
