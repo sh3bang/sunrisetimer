@@ -49,5 +49,5 @@ Byte	CK_A	CK_B
 0x09	2C		52
 0x16	42		94
 0xFF	41		D5
-0x00	41		16
+0x00	41		16	<-- Prüfsumme
 ````
