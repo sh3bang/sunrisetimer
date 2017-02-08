@@ -134,10 +134,10 @@ static void enable_nav_timeutc()
 int main(void)
 {
 	// Ausgang: Relais, PWM, Board LED
-	DDRA = (1<<DDRA0)|(1<<DDRA1)|(1<<DDRA5);
+	DDRA = (1<<DDRA3)|(1<<DDRA1)|(1<<DDRA5);
 
 	// Standardeinstellung Relais aus (high), Board LED an (low)
-	PORTA = (1<<PORTA0);
+	PORTA = (1<<PORTA3);
 		
 	/************************************************************************/
 	/* CPU-Takt einstellen                                                  */
@@ -368,13 +368,13 @@ int main(void)
 								else if(OCR0BL > duty_cyle_max) {
 									OCR0BL -= 1;
 								}
-								PORTA &= ~(1<<PORTA0); // Relais an
+								PORTA &= ~(1<<PORTA3); // Relais an
 							}
 							else if(OCR0BL > 0) {
 								OCR0BL -= 1;
 							}
 							else {
-								PORTA |= (1<<PORTA0); // Relais aus
+								PORTA |= (1<<PORTA3); // Relais aus
 							}
 						}
 						PORTA &= ~(1<<PORTA5); // Board LED an (gültige uhrzeit)
