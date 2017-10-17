@@ -378,6 +378,8 @@ int main(void)
 							}
 						}
 						PORTA &= ~(1<<PORTA5); // Board LED an (gültige uhrzeit)
+					} else {
+						OCR0BL = 0; // kein GPS -> Licht aus!
 					}
 				}
 
