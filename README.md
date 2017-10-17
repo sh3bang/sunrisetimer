@@ -2,7 +2,9 @@
 ![UBLOX VK16U6](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/UBLOX-vk16u6.jpg)
 
 # GPS based Timer @ ATtiny104 Xplained Nano
-Zeitschaltuhr für Aquarien mit Sonnenauf- und Untergangssimmulation
+Zeitschaltuhr für Aquarien mit Sonnenaufgang- und Untergangssimmulation
+
+!! DIESES SEITE DIENT LEDIGLICH ALS GEDANKENSTÜTZE MEINERSEITS UND IST DAHER NICHT ALS VOLLSTÄNDIGE DOKUMENTATION ANZUSEHEN !!
 
 ### Der ATtiny104 kurz vorgestellt
 - 1024 Bytes Flash
@@ -86,3 +88,9 @@ Byte	CK_A	CK_B
 0xFF	41		D5
 0x00	41		16	<-- Prüfsumme
 ````
+
+### Beschaltung
+- Es kommen zwei Netzteile zum Einsatz: ein 5V Netzteil für die ICs und die KSQ für die High Power LED Beleuchung
+- Zwischen diesen Potentialen muss ein Potentialausgleich gemacht werden (GND 5V und GND KSQ Dimmer verbinden) da sonst die Dimmung nicht richtig funktioniert (Licht flackert)
+
+![pinout](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/board.jpg)
