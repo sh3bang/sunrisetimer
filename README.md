@@ -5,19 +5,19 @@
 Fish tank sunrise and sunset timer
 
 
-Der ATtiny104 kurz vorgestellt:
+### Der ATtiny104 kurz vorgestellt
 - 1024 Bytes Flash
 - 32 Bytes RAM
 - Kein EEPROM!
 - 1 UART
 
-Zur Entwicklerplatine:
-- Ist dadurch nur für absolute Kleinigkeiten zu gebrauchen
+### Zur Entwicklerplatine
+- Ist nur für absolute Kleinigkeiten zu gebrauchen
 - der ATtiny104 ist ironischer weise mit einem ATmega32U4 verbunden und kann darüber über das Atmel Studio programmiert werden.
 - dieser sog. "Debugger" ermöglicht es ausserdem via USB Daten an das Programm zu senden bzw. zu Empfangen!
 - Hiefür stellt der Atmel USB Treiber eine virtuelle, serielle Schnittstelle zur verfügung
 
-Zum Programm:
+### Zum Programm
 - Zweck: Zeitschaltuhr fürs Aquarium
 - Kurrios: die Zeit wird via GPS und nicht DCF77 (Radiofunk) bezogen*
 - Nachteil: Zeitzonen sowie Sommer- und Winterzeit gibts bei GPS nicht
@@ -33,7 +33,7 @@ Zum Programm:
 * Ja, der Emfpang ist auch IN DER WOHNUNG problemlos möglich, sogar sehr Zuverlässig :D
 
 
-Sonstige Hinweise:
+### Sonstige Hinweise
 - Kompiliert mit AVR-GCC 4.9.2 vom Atmel Studio 7.0 (build 1188) vom September 2016; Optimierung -Os
 - Kompilieren mit anderen Versionen kann sehr warscheinlich zu anderen Programmgrößen führen!
 - Die Einstellungen werden auf der letzten "Speicherseite" (16 Bytes) im Flash abgelegt, da kein EEPROM vorhanden ist
@@ -41,10 +41,8 @@ Sonstige Hinweise:
 - Speicherbedingt werden keine Interruptroutinen verwendet, daher läuft alles in der Hauptschleife!
 - Den Takt gibt der intere Quartz/Oszillator vor welcher bei jedem Model abwechend ausfallen kann und daher sollte ggf. das "Oscillator Calibration Register" angepasst werden (Oszilloskope vorausgesetzt)
 - Baudrate ist 9600 (Virtuelle, serielle Schnittstelle als auch vom GPS Modul)
-- main.c: Hauptprogramm -> Flash
-- checksum.c: Programm um die Einstellungen/Daten zu erzeugen die via UART an das Prgramm geschickt werden müssen, siehe unten
-
-![HTERM](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/hterm.jpg)
+- main.c: Hauptprogramm -> AVR-GCC -> Flash
+- checksum.c: Kleines Hilfsprogramm zum erzeugen der Einstellungsdaten die bspw. über das Terminalprogramm HTERM vorgenommen werden, siehe unten
 
 
 ### Dokumente
@@ -63,6 +61,9 @@ Diese Dauer kann bis zu 256 mal verlängert werden (Byte 7 auf 255).
 
 Der IC hat nur ein UART der bereits vom GPS Receiver belegt ist, welcher jedoch nicht permanent die Leitung belegt.
 Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. wenn er längere Zeit nichts empfangen hat. In diesem Zeitfenster muss das Paket gesendet werden!
+
+![HTERM](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/hterm.jpg)
+
 
 ### Paketbeispiel
 ````
