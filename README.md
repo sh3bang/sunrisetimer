@@ -20,7 +20,7 @@ Zeitschaltuhr für Aquarien mit Sonnenauf- und Untergangssimmulation
 - Simmulation von Sonnenaufgang- und Untergang in dem das Licht beim einschalten heller und beim ausschalten dunkler wird
 - Zeitpunkt zum ein- und ausschalten sowie die Helligkeitseinstellung und Dauer der Simmulation kann via USB programmiert werden
 - Die Einstellungen bleiben auch nach einem Stromausfall erhalten
-- Die Uhrzeit wird automatisch via GPS und nicht über DCF77 (Radiofunk) bezogen (Ja, der Emfpang ist auch IN DER WOHNUNG problemlos möglich, sogar sehr Zuverlässig :D)
+- Die Uhrzeit wird automatisch via GPS und nicht über DCF77 (Radiofunk) bezogen (Ja, der Emfpang ist auch IN DER WOHNUNG problemlos möglich, sogar sehr zuverlässig)
 - Speicherbedingt entdet die Sommer/Winterzeit am letzten Tag des Monats, nicht am letzten Sonntag des Monats!
 - Die Einstellungen können "Live" via USB geändert werden, hierbei muss nur darauf geachtet werden, dass das Programm nicht gerade Daten vom GPS Empfänger empfängt (siehe unten)
 - Die Helligkeit wird über ein niederfrequentes PWM signal geregelt
