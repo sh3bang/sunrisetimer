@@ -2,8 +2,7 @@
 ![UBLOX VK16U6](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/UBLOX-vk16u6.jpg)
 
 # GPS based Timer @ ATtiny104 Xplained Nano
-Fish tank sunrise and sunset timer
-
+Zeitschaltuhr für Aquarien mit Sonnenauf- und Untergangssimmulation
 
 ### Der ATtiny104 kurz vorgestellt
 - 1024 Bytes Flash
@@ -13,22 +12,20 @@ Fish tank sunrise and sunset timer
 
 ### Zur Entwicklerplatine
 - Ist nur für absolute Kleinigkeiten zu gebrauchen
-- der ATtiny104 ist ironischer weise mit einem ATmega32U4 verbunden und kann darüber über das Atmel Studio programmiert werden.
-- dieser sog. "Debugger" ermöglicht es ausserdem via USB Daten an das Programm zu senden bzw. zu Empfangen!
-- Hiefür stellt der Atmel USB Treiber eine virtuelle, serielle Schnittstelle zur verfügung
+- Der ATtiny104 teilt sich ironischer weise mit einem ATmega32U4 das Board und wird über diesen, bspw. mit dem Atmel Studio 7, programmiert
+- Dieser "Debugger" ermöglicht es ausserdem via USB Daten an das Programm, an den ATtiny zu senden bzw. zu Empfangen!
+- Der Atmel USB Treiber stellt hierfür eine virtuelle, serielle Schnittstelle zur Verfügung
 
 ### Zum Programm
-- Zweck: Zeitschaltuhr fürs Aquarium
-- Kurrios: die Zeit wird via GPS und nicht DCF77 (Radiofunk) bezogen*
-- Nachteil: Zeitzonen sowie Sommer- und Winterzeit gibts bei GPS nicht
-- Positionsdaten werden logischerweise auch nicht benötigt, lediglich die Uhrzeit (UTC)
-- Speicherbedingt entdet die Sommer/Winterzeit am letzten Tag des Monats, nicht am letzten Sonntag des Monats!
 - Simmulation von Sonnenaufgang- und Untergang in dem das Licht beim einschalten heller und beim ausschalten dunkler wird
-- Zeitpunkt zum Ein- und Ausschalten sowie die Helligkeitseinstellung und Dauer der Simmulation kann via USB programmiert werden
-- Die Einstellungen können "Live" via USB geändert werden, hierbei muss nur darauf geachtet werden, dass das Programm nicht gerade Daten vom GPS Empfänger empfängt (s.u.)
+- Zeitpunkt zum ein- und ausschalten sowie die Helligkeitseinstellung und Dauer der Simmulation kann via USB programmiert werden
+- Die Einstellungen bleiben auch nach einem Stromausfall erhalten
+- Die Uhrzeit wird automatisch via GPS und nicht über DCF77 (Radiofunk) bezogen*
+- Speicherbedingt entdet die Sommer/Winterzeit am letzten Tag des Monats, nicht am letzten Sonntag des Monats!
+- Die Einstellungen können "Live" via USB geändert werden, hierbei muss nur darauf geachtet werden, dass das Programm nicht gerade Daten vom GPS Empfänger empfängt (siehe unten)
 - Die Helligkeit wird über ein niederfrequentes PWM signal geregelt
 - Sollte das GPS Signal verloren gehen, wird das Licht ohne Sonnenuntergang abgeschaltet (Speicherbedingt)
-- Zusätzlich wird kann ein Relais beim Ein- und Ausschalten des Timers in Betrieb genommen werden
+- Zusätzlich kann ein Relais beim ein- und ausschalten des Timers in Betrieb genommen werden
 
 * Ja, der Emfpang ist auch IN DER WOHNUNG problemlos möglich, sogar sehr Zuverlässig :D
 
@@ -38,11 +35,14 @@ Fish tank sunrise and sunset timer
 - Kompilieren mit anderen Versionen kann sehr warscheinlich zu anderen Programmgrößen führen!
 - Die Einstellungen werden auf der letzten "Speicherseite" (16 Bytes) im Flash abgelegt, da kein EEPROM vorhanden ist
 - Die maximale Programmgröße darf daher nur 1008 Bytes betragen welche auch akkuat ausgenutzt wird (1008 Bytes)!!!
+- Kleiner GPS Nachteil: Zeitzonen sowie Sommer- und Winterzeit gibts bei GPS nicht
+- Positionsdaten werden logischerweise auch nicht benötigt, lediglich die Uhrzeit (UTC)
 - Speicherbedingt werden keine Interruptroutinen verwendet, daher läuft alles in der Hauptschleife!
 - Den Takt gibt der intere Quartz/Oszillator vor welcher bei jedem Model abwechend ausfallen kann und daher sollte ggf. das "Oscillator Calibration Register" angepasst werden (Oszilloskope vorausgesetzt)
 - Baudrate ist 9600 (Virtuelle, serielle Schnittstelle als auch vom GPS Modul)
 - main.c: Hauptprogramm -> AVR-GCC -> Flash
 - checksum.c: Kleines Hilfsprogramm zum erzeugen der Einstellungsdaten die bspw. über das Terminalprogramm HTERM vorgenommen werden, siehe unten
+- Mit einem kleinen trick kann der UBlox am PC über die Software "UBlox U-Center" ausgelesen und erforscht werden. Hierfür müssen RX/TX vertauscht werden und der ATtiny104 in den "Reset" -Mode gehen
 
 
 ### Dokumente
