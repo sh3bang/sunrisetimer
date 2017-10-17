@@ -4,12 +4,48 @@
 # GPS based Timer @ ATtiny104 Xplained Nano
 Fish tank sunrise and sunset timer
 
-Challenge: 1kB flash!
 
-Result:
-- 1004 Bytes programm size
-- no eeprom, store timer settings on last flash page (16 Bytes)
-- 6 Bytes Free (space optimized compiling with AVR-GCC -Os)
+Der ATtiny104 kurz vorgestellt:
+- 1024 Bytes Flash
+- 32 Bytes RAM
+- Kein EEPROM!
+- 1 UART
+
+Zur Entwicklerplatine:
+- Ist dadurch nur für absolute Kleinigkeiten zu gebrauchen
+- der ATtiny104 ist ironischer weise mit einem ATmega32U4 verbunden und kann darüber über das Atmel Studio programmiert werden.
+- dieser sog. "Debugger" ermöglicht es ausserdem via USB Daten an das Programm zu senden bzw. zu Empfangen!
+- Hiefür stellt der Atmel USB Treiber eine virtuelle, serielle Schnittstelle zur verfügung
+
+Zum Programm:
+- Zweck: Zeitschaltuhr fürs Aquarium
+- Kurrios: die Zeit wird via GPS und nicht DCF77 (Radiofunk) bezogen*
+- Nachteil: Zeitzonen sowie Sommer- und Winterzeit gibts bei GPS nicht
+- Positionsdaten werden logischerweise auch nicht benötigt, lediglich die Uhrzeit (UTC)
+- Speicherbedingt entdet die Sommer/Winterzeit am letzten Tag des Monats, nicht am letzten Sonntag des Monats!
+- Simmulation von Sonnenaufgang- und Untergang in dem das Licht beim einschalten heller und beim ausschalten dunkler wird
+- Zeitpunkt zum Ein- und Ausschalten sowie die Helligkeitseinstellung und Dauer der Simmulation kann via USB programmiert werden
+- Die Einstellungen können "Live" via USB geändert werden, hierbei muss nur darauf geachtet werden, dass das Programm nicht gerade Daten vom GPS Empfänger empfängt (s.u.)
+- Die Helligkeit wird über ein niederfrequentes PWM signal geregelt
+- Sollte das GPS Signal verloren gehen, wird das Licht ohne Sonnenuntergang abgeschaltet (Speicherbedingt)
+- Zusätzlich wird kann ein Relais beim Ein- und Ausschalten des Timers in Betrieb genommen werden
+
+* Ja, der Emfpang ist auch IN DER WOHNUNG problemlos möglich, sogar sehr Zuverlässig :D
+
+
+Sonstige Hinweise:
+- Kompiliert mit AVR-GCC 4.9.2 vom Atmel Studio 7.0 (build 1188) vom September 2016; Optimierung -Os
+- Kompilieren mit anderen Versionen kann sehr warscheinlich zu anderen Programmgrößen führen!
+- Die Einstellungen werden auf der letzten "Speicherseite" (16 Bytes) im Flash abgelegt, da kein EEPROM vorhanden ist
+- Die maximale Programmgröße darf daher nur 1008 Bytes betragen welche auch akkuat ausgenutzt wird (1008 Bytes)!!!
+- Speicherbedingt werden keine Interruptroutinen verwendet, daher läuft alles in der Hauptschleife!
+- Den Takt gibt der intere Quartz/Oszillator vor welcher bei jedem Model abwechend ausfallen kann und daher sollte ggf. das "Oscillator Calibration Register" angepasst werden (Oszilloskope vorausgesetzt)
+- Baudrate ist 9600 (Virtuelle, serielle Schnittstelle als auch vom GPS Modul)
+- main.c: Hauptprogramm -> Flash
+- checksum.c: Programm um die Einstellungen/Daten zu erzeugen die via UART an das Prgramm geschickt werden müssen, siehe unten
+
+![HTERM](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/hterm.jpg)
+
 
 ### Dokumente
 
@@ -20,7 +56,7 @@ Result:
 - [ATtiny104 Datasheet](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/Atmel-42505-8-bit-AVR-Microcontrollers-ATtiny102-ATtiny104_Datasheet.pdf)
 - [ATtiny104 PCB](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/ATtiny104_Xplained_Nano_design_documentation_release_rev2.pdf)
 
-##Timereinstellungen via UART Programmieren (COM Port via USB)
+## Timereinstellungen via UART Programmieren (COM Port via USB)
 
 Die Auflösung des Timers beträgt 8 Bit, welcher sich pro Sekunde von 0 bis 255 erhöhen kann (Maximale Helligkeit nach ca. 4,6 Min).
 Diese Dauer kann bis zu 256 mal verlängert werden (Byte 7 auf 255).
@@ -28,7 +64,7 @@ Diese Dauer kann bis zu 256 mal verlängert werden (Byte 7 auf 255).
 Der IC hat nur ein UART der bereits vom GPS Receiver belegt ist, welcher jedoch nicht permanent die Leitung belegt.
 Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. wenn er längere Zeit nichts empfangen hat. In diesem Zeitfenster muss das Paket gesendet werden!
 
-###Paketbeispiel
+### Paketbeispiel
 ````
 0xB9	<-- Paketkennung
 0x03
@@ -41,7 +77,7 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 0x16	<-- Prüfsumme CK_B
 ````
 
-###Beispiel Prüfsummenberechnung
+### Beispiel Prüfsummenberechnung
 ````
 Byte	CK_A	CK_B
 0x03	03		03
