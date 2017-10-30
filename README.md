@@ -64,6 +64,8 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 
 ![HTERM](https://raw.githubusercontent.com/sh3bang/sunrisetimer/master/resources/hterm.jpg)
 
+### Paket erzeugen
+[JavaScript Tool](https://rawgit.com/sh3bang/sunrisetimer/master/checksum.html)
 
 ### Paketbeispiel
 ````
@@ -77,9 +79,6 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 0x41	<-- Prüfsumme CK_A
 0x16	<-- Prüfsumme CK_B
 ````
-
-### Paketerstellung
-[HTML/JavaScript Tool](https://rawgit.com/sh3bang/sunrisetimer/master/checksum.html)
 
 ### Beispiel Prüfsummenberechnung
 ````
