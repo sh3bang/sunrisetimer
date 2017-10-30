@@ -2,10 +2,10 @@
 
 int main(void) {
 	
-	unsigned int on = 730; // HHMM
-	unsigned int off = 1630; // HHMM
+	unsigned int on = 800; // HHMM
+	unsigned int off = 2326; // HHMM
 	unsigned int dc = 255;
-	unsigned int multi = 35;
+	unsigned int multi = 0;
 		
 	unsigned char ck_a = 0;
 	unsigned char ck_b = 0;

@@ -71,7 +71,7 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 0x03
 0x20	<-- 8:00 Einschalten (Hochdimmen)
 0x09
-0x16	<-- 23:59 Ausschalten (Runterdimmen)
+0x16	<-- 23:26 Ausschalten (Runterdimmen)
 0xFF	<-- Max. Helligkeit (255 = 100% Duty Cycle)
 0x00	<-- Dauer des Sonnenauf- und Untergangs
 0x41	<-- Prüfsumme CK_A
@@ -81,12 +81,12 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 ### Beispiel Prüfsummenberechnung
 ````
 Byte	CK_A	CK_B
-0x03	03		03
-0x20	23		26
-0x09	2C		52
-0x16	42		94
-0xFF	41		D5
-0x00	41		16	<-- Prüfsumme
+0x03	03	03
+0x20	23	26
+0x09	2C	52
+0x16	42	94
+0xFF	41	D5
+0x00	41	16	<-- Prüfsumme
 ````
 
 ### Beschaltung
