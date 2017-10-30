@@ -78,6 +78,9 @@ Daher sendet der IC ein "R" für "Ready" wenn er Zeit zum empfangen hat - bzw. w
 0x16	<-- Prüfsumme CK_B
 ````
 
+### Paketerstellung
+[HTML/JavaScript Tool](https://rawgit.com/sh3bang/sunrisetimer/master/checksum.html)
+
 ### Beispiel Prüfsummenberechnung
 ````
 Byte	CK_A	CK_B
