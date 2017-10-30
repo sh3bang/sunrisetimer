@@ -1,0 +1,101 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<style>
+		body, input {
+			font-size:16pt
+		}
+		div {
+			position: relative;
+			line-height:40px;
+		}
+		div > span {
+			position: absolute;
+			left: 250px;
+
+		}
+		</style>
+		<script type="application/javascript">
+		
+		function secondsToHms(d) {
+			d = Number(d);
+
+			var h = Math.floor(d / 3600);
+			var m = Math.floor(d % 3600 / 60);
+			var s = Math.floor(d % 3600 % 60);
+
+			return ('0' + h).slice(-2) + ":" + ('0' + m).slice(-2) + ":" + ('0' + s).slice(-2);
+		}
+		
+		function PkgBuild(){
+			var on_hour = parseInt(document.getElementById("onh").value);
+			var on_minute = parseInt(document.getElementById("onm").value);
+			
+			var off_hour = parseInt(document.getElementById("offh").value);
+			var off_minute = parseInt(document.getElementById("offm").value);
+			
+			if(on_hour > 23 || on_hour < 0 || isNaN(on_hour) || off_hour > 23 || off_hour < 0 || isNaN(off_hour) ||
+			   on_minute > 59 || on_minute < 0 || isNaN(on_minute) || off_minute > 59 || off_minute < 0 || isNaN(off_minute)
+			 ){
+				alert('Uhrzeit bitte in Stunden und Minuten angeben');
+				return 1;
+			}
+			var on = on_hour * 100 + on_minute;
+			var off = off_hour * 100 + off_minute;
+			
+			var brightness = parseInt(document.getElementById("brightness").value);
+			
+			if(brightness > 100 || brightness < 0 || isNaN(brightness)){
+				alert('Für die Helligkeit sind nur Werte zwischen 0 und 255 zugelassen');
+				return 1;
+			}
+			
+			var dc = Math.round((255/100)*brightness);
+			
+			var multi = parseInt(document.getElementById("multi").value);
+			
+			if(multi > 255 || multi < 0 || isNaN(multi)){
+				alert('Für die Verzögerung sind nur Werte zwischen 0 und 255 zugelassen');
+				return 1;
+			}
+			
+			var ck_a = 0;
+			var ck_b = 0;
+			
+			// package header
+			var str = (0xB9).toString(16);
+					
+			// package body
+			var payload = [on >> 8, on & 0xFF, off >> 8, off & 0xFF, dc, multi];
+				
+			for (var i = 0; i < payload.length; i++) {
+				ck_a = (ck_a + payload[i]) & 0xFF;
+				ck_b = (ck_b + ck_a) & 0xFF;
+				str = str + payload[i].toString(16).padStart(2, "0");
+			}
+			
+			// package checksum
+			str = str + ck_a.toString(16).padStart(2, "0") + ck_b.toString(16).padStart(2, "0");
+			
+			document.getElementById("result").innerHTML = str.toUpperCase();
+			document.getElementById("duration").innerHTML = secondsToHms(dc * (multi + 1));
+			document.getElementById("dc").innerHTML = dc;
+			return 0;
+		}
+		</script> 
+	</head>
+	<body>
+		<h1>sh3bang/sunrisetimer - Konfigurator</h1>
+		<hr>
+		<div>Sonnenaufgang <span><input type="text" id="onh" size="2" maxlength="2" value="7"/>:<input type="text" id="onm" size="2" maxlength="2" value="30"/> HH:MM</span></div>
+		<div>Sonnenuntergang <span><input type="text" id="offh" size="2" maxlength="2" value="16"/>:<input type="text" id="offm" size="2" maxlength="2"value="30"/> HH:MM</span></div>
+		<div>Helligkeit <span><input type="text" id="brightness" size="3" maxlength="3" value="100"/> %</span></div>
+		<div>Verzögerung <span><input type="text" id="multi" size="3" maxlength="3" value="35"/> 0-255</span></div>
+		<div>&nbsp;<span><input type="button" onclick="PkgBuild()" value="Paket erstellen"/></span></div>
+		<hr>
+		<div>Paketdaten <span id="result">B902DA065EFF2362A1</span></div>
+		<div>Dauer des Sonnenaufgangs <span id="duration">02:33:00</span></div>
+		<div>PWM Duty Cycle (8-bit) <span id="dc">255</span></div>
+		
+	</body>
+</html>
