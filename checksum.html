@@ -3,15 +3,23 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<style>
 		body, input {
-			font-size:16pt
+			font-size:24px;
+		}
+		input {
+			border:1px solid;
+			border-color:black;
+			margin:0px;
+			padding:3px 10px;
+			background-color:white;
+			color:black;
 		}
 		div {
 			position: relative;
-			line-height:40px;
+			line-height:45px;
 		}
 		div > span {
 			position: absolute;
-			left: 250px;
+			left: 300px;
 
 		}
 		</style>
@@ -87,14 +95,14 @@
 	<body>
 		<h1>sh3bang/sunrisetimer - Konfigurator</h1>
 		<hr>
-		<div>Sonnenaufgang <span><input type="text" id="onh" size="2" maxlength="2" value="7"/>:<input type="text" id="onm" size="2" maxlength="2" value="30"/> HH:MM</span></div>
-		<div>Sonnenuntergang <span><input type="text" id="offh" size="2" maxlength="2" value="16"/>:<input type="text" id="offm" size="2" maxlength="2"value="30"/> HH:MM</span></div>
+		<div>Sonnenaufgang <span><input type="text" id="onh" size="2" maxlength="2" value="8"/>:<input type="text" id="onm" size="2" maxlength="2" value="0"/> HH:MM</span></div>
+		<div>Sonnenuntergang <span><input type="text" id="offh" size="2" maxlength="2" value="23"/>:<input type="text" id="offm" size="2" maxlength="2"value="26"/> HH:MM</span></div>
 		<div>Helligkeit <span><input type="text" id="brightness" size="3" maxlength="3" value="100"/> %</span></div>
-		<div>Verzögerung <span><input type="text" id="multi" size="3" maxlength="3" value="35"/> 0-255</span></div>
+		<div>Verzögerung <span><input type="text" id="multi" size="3" maxlength="3" value="0"/> 0-255</span></div>
 		<div>&nbsp;<span><input type="button" onclick="PkgBuild()" value="Paket erstellen"/></span></div>
 		<hr>
-		<div>Paketdaten <span id="result">B902DA065EFF2362A1</span></div>
-		<div>Dauer des Sonnenaufgangs <span id="duration">02:33:00</span></div>
+		<div>Paketdaten <span id="result">B903200916FF004116</span></div>
+		<div>Dauer des Sonnenaufgangs <span id="duration">00:04:15</span></div>
 		<div>PWM Duty Cycle (8-bit) <span id="dc">255</span></div>
 		
 	</body>
